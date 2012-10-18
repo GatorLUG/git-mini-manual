@@ -1,0 +1,45 @@
+\ProvidesPackage{fonts}
+% Defines the fonts for the git manual
+
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage[Lenny]{fncychap}
+\usepackage{etoolbox}
+\usepackage{tikz}
+\usepackage{relsize}
+
+\newfontfamily{\sourcesanspro}{Source Sans Pro}
+\newfontfamily{\sourcecodepro}{Source Code Pro}
+\newfontfamily{\adelle}{Adelle Basic}
+
+% Define body fonts
+\setmainfont{Source Sans Pro}
+\setsansfont{Source Sans Pro}
+\setmonofont{Source Code Pro}
+
+% Define chapter
+\ChNameVar{\fontsize{14}{16}\adelle\selectfont}
+\ChNumVar{\fontsize{60}{62}\adelle\selectfont}
+\ChTitleVar{\Huge\bfseries\adelle\selectfont}
+\ChRuleWidth{1pt}
+\makeatletter
+\patchcmd{\@makechapterhead}{50\p@}{0pt}{}{}
+\patchcmd{\@makeschapterhead}{50\p@}{0pt}{}{}
+\makeatother
+
+% Define sectioning fonts
+\titleformat*{\section}{\Large\bfseries\adelle}
+\titleformat*{\subsection}{\large\bfseries\adelle}
+
+% Redefine emph and define strong for semantic markup
+\renewcommand{\emph}[1]{\textit{#1}}
+\newcommand{\strong}[1]{\textbf{#1}}
+
+% Define \cmdtt for command-line commands
+\newcommand{\cmdtt}[1]{%
+    \begin{tikzpicture}[outer sep=-10pt, inner sep=1pt, baseline]%
+        \node[anchor=text, rectangle, rounded corners=2pt, fill=black!10,%
+              minimum height=1em]%
+        {\smaller\texttt{#1}};%
+    \end{tikzpicture}%
+}

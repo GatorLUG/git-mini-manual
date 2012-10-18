@@ -1,0 +1,28 @@
+\ProvidesPackage{titlepage}
+% Defines a new \maketitle for the git manual
+
+\usepackage{fonts}
+\usepackage{graphicx}
+
+\renewcommand{\maketitle}{{
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{0pt}
+    \thispagestyle{empty}
+    \adelle
+    \makeatletter
+
+    \vspace*{\fill}
+    \begin{center}
+        \begin{Huge}\@title\end{Huge}\\
+        \vspace{1cm}
+        \begin{LARGE}\@author\end{LARGE}\\
+        \vspace{2cm}
+        \includegraphics[height=4cm]{resources/Git-Icon-Black.pdf}
+    \end{center}
+    \vspace*{\fill}
+
+    \pagebreak
+    \makeatother
+    \setcounter{page}{1}
+}}
+

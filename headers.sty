@@ -1,0 +1,27 @@
+\ProvidesPackage{headers}
+% Uses fancyhdr for the git manual
+
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+% make the chapter name accessable
+%\apptocmd{\chapter}{\def{\thechaptername}{#1}}{}{}
+
+\fancypagestyle{plain}
+
+\pagestyle{plain}
+
+\fancyhead{}
+\fancyfoot{}
+
+\fancyhead[LE,LO]{\textbf{\@title}}
+\fancyhead[RE,RO]{%
+    \textbf{{\chaptername} \thechapter}%
+    \hspace{5pt}\textbar\hspace{5pt}%
+    \leftmark%
+}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+\setlength{\headheight}{14pt}
+
+\fancyfoot[RE,RO]{Page \thepage}

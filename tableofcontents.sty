@@ -1,0 +1,16 @@
+\ProvidesPackage{tableofcontents}
+% Defines \maketoc for the git manual
+
+\usepackage{fonts}
+\usepackage{etoolbox}
+
+\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}} 
+
+\newcommand{\maketoc}{{
+    \tableofcontents
+
+    \vspace*{\fill}
+    \pagebreak
+    \setcounter{page}{1}
+}}
+
