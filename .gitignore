@@ -4,3 +4,5 @@
 *.out
 manual.pdf
 *.toc
+*.bbl
+*.blg

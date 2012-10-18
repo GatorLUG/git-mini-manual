@@ -7,15 +7,17 @@
 \usepackage{etoolbox}
 \usepackage{tikz}
 \usepackage{relsize}
+\usepackage{csquotes}
 
 \newfontfamily{\sourcesanspro}{Source Sans Pro}
 \newfontfamily{\sourcecodepro}{Source Code Pro}
 \newfontfamily{\adelle}{Adelle Basic}
 
 % Define body fonts
-\setmainfont{Source Sans Pro}
-\setsansfont{Source Sans Pro}
-\setmonofont{Source Code Pro}
+\setmainfont[Ligatures={TeX}]{Source Sans Pro}
+\setsansfont[Ligatures={TeX}]{Source Sans Pro}
+\setmonofont[Ligatures={TeX}]{Source Code Pro}
+\MakeOuterQuote{"}
 
 % Define chapter
 \ChNameVar{\fontsize{14}{16}\adelle\selectfont}

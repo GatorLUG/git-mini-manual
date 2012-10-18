@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{multicol}
 \usepackage{verbatim}
+\usepackage{cite}
 
 % Custom defined packages
 \usepackage{metrics}
@@ -24,23 +25,25 @@
 \chapter{Introduction}
 
 A \strong{Version Control System (VCS)} is a piece of software that helps a
-developer manage and \emph{develop multiple revisions of source code,
-configuration files, or other relevant documents}. Git is a modern VCS, with a
-fast distributed architecture. It is open-source, and is open-source focused,
-originally developed to help manage the development of the Linux Kernel, a
-multi-million line code base.
+developer manage and \emph{develop multiple revisions of source
+code\cite{vcs-history}, configuration files, or other relevant documents}. Git
+is a modern VCS, with a fast distributed architecture. It is open-source, and is
+open-source focused, originally developed to help manage the development of the
+Linux Kernel\cite{linus-scalability}, a multi-million line code
+base\cite{kernel-size}.
 
 Git is implementation-transparent, and focuses on raw simplicity instead of
 abstraction. It's underlying data storage and structures are stored as flat
 files in the project directory. Deduplication is handled by linking.
 Configuration is handled with plain text files, which can themselves be
-versioned along with their project.
+versioned along with their project\cite{git-magic}.
 
 Compared to more traditional client-server architecture version control systems,
 git is unique in that every developer owns an equal-value copy. This design
 encourages forking by making the associated operation cheaper and easier. Git
 advertises inexpensive branching and merging, which encourages developers to
-separate changes, making later isolation of problems simpler.
+separate changes, making later isolation of problems
+simpler\cite{dvcs-migration}.
 
 This manual exists to provide the information necessary to become productive
 with git, beginning with the basics and moving up. It assumes no knowledge,
@@ -59,8 +62,8 @@ on installing git, refer to the official git documentation:
 
 Given that git itself is implementation transparent, and given that common
 workflows that may arise from its use are quite different from a traditional
-development process, it is imperative that one has a basic understanding of
-git's design.
+development process\cite{dvcs-government}, it is imperative that one has a basic
+understanding of git's design.
 
 In git every state of the code is represented by an initial commit, and every
 change after that\footnote{Don't worry: git caches intelligently, so that your
@@ -73,7 +76,7 @@ that means is that every change is tracked discretely, and git knows
 Forming a branch \strong{breaks your development path in two}. That's a good
 thing! We can make branches to add new features, fix bugs, or do anything else
 we may want. Branching essentially allows us to context switch, and git tries to
-make that process as smooth as possible.
+make that process as smooth as possible. \cite{git-branch-example}
 
 One thing you'll hear often from the git community is that git has "cheap
 branches". When git branches, instead of copying everything over, it simply
@@ -90,7 +93,7 @@ performs linear merges, creating various edge cases that make merging complex,
 or happen incorrectly. Git tracks previous merges and commits, reducing the
 chance one of theses issues pops up. On top of that, it uses the industry-
 standard 3-way merge algorithm, with inputs of the greatest common ancestor, the
-existing branch, and the branch to merge into.
+existing branch, and the branch to merge into. \cite{git-manpages}
 
 While you may not care how it works, rest assured: \emph{git's merging is some
 of the best}.
@@ -105,8 +108,8 @@ of the best}.
 
 From an operating system's perspective, a git repository is just a directory.
 There's nothing special running in the background, and the only marker is a
-hidden subdirectory, '\texttt{.git}'. Let's turn a normal directory into a
-repository with \cmdtt{git init}.
+hidden subdirectory, '\texttt{.git}'. \cite{git-magic} Let's turn a normal
+directory into a repository with \cmdtt{git init}.
 
 \begin{enumerate}
 \item Open up your bash shell, or any other similar shell of your preference
@@ -146,9 +149,9 @@ it's good to know that it's there.
 \begin{description}
 \item[\texttt{--bare}]
     Running \cmdtt{git init --bare} will give you a special type of repository,
-    known as a bare repository. Bare repositories have no checked out state, and
-    so are generally not intended to be used directly. They are commonly used as
-    a remote source, like on a server
+    known as a bare repository\cite{git-manpages}. Bare repositories have no
+    checked out state, and so are generally not intended to be used directly.
+    They are commonly used as a remote source, like on a server
 \end{description}
 
 \vspace{\fill}
@@ -179,7 +182,7 @@ up the next compilation.}:
 \end{multicols}
 
 I don't want to commit any of these files. With git, if I don't want them
-committed, I simply won't stage them!
+committed, I simply won't stage them! \cite{git-magic}
 
 \section{Adding Changed Files to the Staging Area}
 Let's assume we have both a file named \texttt{cake.py}, and a
@@ -234,7 +237,7 @@ removal.
     recursive by default
 \item By default, the subcommand both stages the removal, and deletes the file
     from the working directory if it exists. To only stage the removal, use
-    \cmdtt{git rm --cached cake.py}
+    \cmdtt{git rm -{}-cached cake.py}
 \item If you want to automatically add \emph{and remove} all the changed files,
     run \cmdtt{git add -u .} (without the \cmdtt{-u} argument,
     \cmdtt{git add}, git will only add files, not remove already deleted ones).
@@ -280,8 +283,8 @@ For example, in repository where \texttt{cake.py} has been staged, but
 While we've staged the changes, we haven't actually saved them yet. A commit can
 be as \emph{small or large as you'd like}, but it should typically
 \strong{accomplish one and only one thing} ("Fixes Bug \#56", "Restructures
-\texttt{cake.py} API"). Git stores each commit as a diff (difference file) with
-a message.
+\texttt{cake.py} API"). \cite{git-branch-example} Git stores each commit as a
+diff (difference file) with a message.
 
 When you run \cmdtt{git commit}, it opens your default editor defined by the
 bash \texttt{\$EDITOR} environment variable. You can override this behavior by
@@ -321,7 +324,8 @@ will open your editor, giving it a commented file without any message:
 \end{lstlisting}
 
 You can leave the comment block there, and simply \strong{put your commit
-message above or below it}. A properly formatted commit message should:
+message above or below it}. A properly formatted commit message
+should\cite{commit-messages}:
 
 \begin{itemize}
 \item Begin with a capitalized 50 (or less) character title. This is used when
@@ -357,15 +361,15 @@ The function is:
 \section{Interesting Optional Arguments}
 
 \begin{description}
-\item[\texttt{-a}, \texttt{--all}]
+\item[\texttt{-a}, \texttt{-{}-all}]
     \cmdtt{git commit -a} is equivalent to running \cmdtt{git add -u .} followed
     by \cmdtt{git commit}
-\item[\texttt{--interactive}]
-    Running \cmdtt{git commit --interactive} allows you to interactively pick
+\item[\texttt{-{}-interactive}]
+    Running \cmdtt{git commit -{}-interactive} allows you to interactively pick
     what files to add or remove before committing. This can also be used as
-    \cmdtt{git add --interactive}, but it tends to be more useful with the
+    \cmdtt{git add -{}-interactive}, but it tends to be more useful with the
     \texttt{commit} subcommand
-\item[\texttt{-m}, \texttt{--message}]
+\item[\texttt{-m}, \texttt{-{}-message}]
     You can write a simple one-line commit message without opening a text editor
     by running \cmdtt{git commit -m "Adds cake.py to compute cake radii"}. This
     argument is useful, but should usually be avoided in favor of a longer, more
@@ -377,8 +381,8 @@ The function is:
 Running \cmdtt{git log} will show you a history of all your previous commits in
 reverse-chronological order. The output is paged with \cmdtt{less}, making it
 easily scrollable and searchable. If you'd like a more compressed output, you
-can use the \texttt{--oneline} argument, which will show the one-line summary of
-each commit instead of a full summary.
+can use the \texttt{-{}-oneline} argument, which will show the one-line summary
+of each commit instead of a full summary.
 
 You'll notice that each commit is assigned a 40-character alphanumeric
 hexadecimal string. This is a cryptographic hash used both to ensure data
@@ -476,7 +480,7 @@ If you'd like to combine the branching and checking out, you can use the
 
 Modifying the branch is just as easy as it was on master. You can add and commit
 whatever you'd like. When you're done, you can check your log, and see all the
-changes there with \cmdtt{git log --oneline}:
+changes there with \cmdtt{git log -{}-oneline} \cite{git-manpages}:
 
 \begin{lstlisting}[numbers=none]
 1c092c4 Fix bug with pie.py's parsing function
@@ -503,7 +507,7 @@ cc77f62 Adds cake.py to compute cake radii
 
 So far we've learned how to form commits, build a history, and branch off this
 history. What we're missing is how to bring those branches back together again.
-The \cmdtt{git merge} tool provides just what we need.
+The \cmdtt{git merge} tool provides just what we need \cite{git-branch-example}.
 
 Passing a branch name to \cmdtt{git merge} will tell git to merge that foreign
 branch with our current one. Let's merge our \texttt{feature/pie} branch into
@@ -532,7 +536,7 @@ force it.}.
 Typically, even if the same file is changed between merging branches, git can
 automatically merge things for you. In a few rare cases, this does fail. When
 this happens as a result of running \cmdtt{git merge}, you'll see something
-like:
+like \cite{git-magic}:
 
 \begin{lstlisting}[numbers=none]
 Auto-merging cake.py
@@ -612,6 +616,8 @@ Title text is written in \emph{Adelle Basic}. Body text is written in Adobe's
 \emph{Source Sans Pro} with \emph{Source Code Pro} for code samples and other
 fixed-width blocks.
 
-\section{References}
+\bibliographystyle{IEEEtran}
+\patchcmd{\thebibliography}{\chapter*}{\section*}{}{}
+\bibliography{references}
 
 \end{document}
