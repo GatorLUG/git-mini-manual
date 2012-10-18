@@ -64,7 +64,7 @@ In git every state of the code is represented by an initial commit, and every
 change after that\footnote{Don't worry: git caches intelligently, so that your
 operations aren't O(\textit{n}) with respect to the commit chain length.}. What
 that means is that every change is tracked discretely, and git knows
-\emph{everything} about every every stage of the development process.
+\emph{everything} about every stage of the development process.
 
 \section{Branching}
 
@@ -74,9 +74,8 @@ we may want. Branching essentially allows us to context switch, and git tries to
 make that process as smooth as possible.
 
 One thing you'll hear often from the git community is that git has "cheap
-branches". This as we only need to copy over the chain of commit references to
-form the new branch, a fast operation. Because of this, there tends to be a
-mantra of \emph{"when in doubt: branch!"}.
+branches". When git branches, instead of copying everything over, it simply
+copies over the chain of commits that form the current branch, a fast operation.
 
 \section{Merging}
 
@@ -88,7 +87,7 @@ often is. Some systems have odd inconsistencies. The git competitor Subversion
 performs linear merges, creating various edge cases that make merging complex,
 or happen incorrectly. Git tracks previous merges and commits, reducing the
 chance one of theses issues pops up. On top of that, it uses the industry-
-standard 3-way merge algorithm, with inputs at the greatest common ancestor, the
+standard 3-way merge algorithm, with inputs of the greatest common ancestor, the
 existing branch, and the branch to merge into.
 
 While you may not care how it works, rest assured: \emph{git's merging is some
@@ -108,16 +107,16 @@ hidden subdirectory, '\texttt{.git}'. Let's turn a normal directory into a
 repository with \cmdtt{git init}.
 
 \begin{enumerate}
-\item Open up your bash shell, or any other similar shell of your preference.
+\item Open up your bash shell, or any other similar shell of your preference
 \item If you already have a directory you would like to use (anything in it will
     be retained), navigate into to it with \cmdtt{cd}. If you don't, make a new
-    directory with \cmdtt{mkdir}, and then \cmdtt{cd} into it.
+    directory with \cmdtt{mkdir}, and then \cmdtt{cd} into it
 \item Run \cmdtt{git init}\footnote{All git commands are executed with
     \cmdtt{git} followed with a subcommand as an argument. To get a list of
     these subcommands, you can use \cmdtt{man git}. To look up documentation on
     a specific subcommand, replace the space with a dash. For example,
     \cmdtt{man git-init} will give you information on the init subcommand.} to
-    initialize the repository.
+    initialize the repository
 \end{enumerate}
 
 \strong{Congratulations}, you've now made your first git repository! No data is
@@ -147,7 +146,7 @@ it's good to know that it's there.
     Running \cmdtt{git init --bare} will give you a special type of repository,
     known as a bare repository. Bare repositories have no checked out state, and
     so are generally not intended to be used directly. They are commonly used as
-    a remote source, like on a server.
+    a remote source, like on a server
 \end{description}
 
 \vspace{\fill}
@@ -177,14 +176,8 @@ files used to speed up the next compilation.}:
 \texttt{manual.toc}
 \end{multicols}
 
-The only file I \emph{might} want to actually commit is the \texttt{pdf}, and
-I'm not even too sure about that\footnote{Git can't figure out the differences
-between binary files, so they merge poorly and take up more space when multiple
-revisions are committed. For this reason, committing binary files to git is
-discouraged if they could potentially be rebuilt from the supplied source.}. If
-I don't want them committed, I simply won't stage them\footnote{There's a better
-way of doing this with files that show up often via a \texttt{.gitignore} file,
-which we'll cover later.}!
+I don't want to commit any of these files. With git, if I don't want them
+committed, I simply won't stage them!
 
 \section{Adding Changed Files to the Staging Area}
 Let's assume we have both a file named \texttt{cake.py}, and a
@@ -200,16 +193,16 @@ use \cmdtt{git add} to accomplish this a variety of ways.
 \item Add the individual file with \cmdtt{git add cake.py}. The \texttt{add}
     subcommand takes the argument of the file to add.
 \item Add the directory the same way you did the file, just passing the
-    directory instead, with \cmdtt{git add src}.
+    directory instead, with \cmdtt{git add src}
 \end{enumerate}
 
 \noindent
 \strong{Grouping them is even easier:}
 \begin{enumerate}
 \item Add both the file and the directory by passing them both into the argument
-    list with \cmdtt{git add cake.py src}.
-\item If you have a filename with spaces in it, you can group the 'blobs' in
-    bash with single or double quotes:
+    list with \cmdtt{git add cake.py src}
+\item If you have a filename with spaces in it, you can group the character
+    string in bash with single or double quotes:
     \cmdtt{git add "path with spaces.txt"}
 \end{enumerate}
 
@@ -217,9 +210,9 @@ use \cmdtt{git add} to accomplish this a variety of ways.
 \strong{If you want to commit all additions, it's even less work:}
 \begin{enumerate}
 \item Pass the current directory (represented by a period) with
-    \cmdtt{git add .}.
+    \cmdtt{git add .}
 \item The \texttt{add} subcommand adds files recursively, so any new changes
-    will be found and added for you.
+    will be found and added for you
 \end{enumerate}
 
 % TODO: put something in here about git add --patch
@@ -231,19 +224,19 @@ removal.
 
 \begin{enumerate}
 \item Remove a file with \cmdtt{git rm}. If one wanted to remove
-    \texttt{cake.py}, it would be as simple as running \cmdtt{git rm cake.py}.
+    \texttt{cake.py}, it would be as simple as running \cmdtt{git rm cake.py}
 \item To remove a directory, use the \texttt{rm} subcommand \emph{with the
     \texttt{-r} argument.} This is different from \cmdtt{git add}, which is
-    recursive by default.
+    recursive by default
 \item By default, the subcommand both stages the removal, and deletes the file
     from the working directory if it exists. To only stage the removal, use
-    \cmdtt{git rm --cached cake.py}.
+    \cmdtt{git rm --cached cake.py}
 \item If you want to automatically add \emph{and remove} all the changed files,
     run \cmdtt{git add -u .} (without the \cmdtt{-u} argument,
     \cmdtt{git add}, git will only add files, not remove already deleted ones).
     Running this \emph{will not add files that aren't currently tracked by git}.
     That is to say it is not staged, nor has any state of the file been
-    committed before.
+    committed before
 \end{enumerate}
 
 \section{Checking the Staging Area Status}
@@ -358,17 +351,17 @@ The function is:
 \begin{description}
 \item[\texttt{-a}, \texttt{--all}]
     \cmdtt{git commit -a} is equivalent to running \cmdtt{git add -u .} followed
-    by \cmdtt{git commit}.
+    by \cmdtt{git commit}
 \item[\texttt{--interactive}]
     Running \cmdtt{git commit --interactive} allows you to interactively pick
     what files to add or remove before committing. This can also be used as
     \cmdtt{git add --interactive}, but it tends to be more useful with the
-    \texttt{commit} subcommand.
+    \texttt{commit} subcommand
 \item[\texttt{-m}, \texttt{--message}]
     You can write a simple one-line commit message without opening a text editor
     by running \cmdtt{git commit -m "Adds cake.py to compute cake radii"}. This
     argument is useful, but should usually be avoided in favor of a longer, more
-    descriptive commit message.
+    descriptive commit message
 \end{description}
 
 \section{The Commit Log}
@@ -485,18 +478,18 @@ you enjoy it. I'll see you at the top!
 \begin{description}
 \item[\href{http://git-scm.com/documentation}{git-scm.com}]
     The official git website has a plethora of documentation, including free
-    access to the popular e-book, "Pro Git".
+    access to the popular e-book, "Pro Git"
 \item[Man Pages]
     We've mentioned it before, but you can look up documentation on (almost) any
     git subcommand by replacing the space with a hyphen, and passing it to man.
     For instance: \cmdtt{man git-add}. If you prefer, you can alternatively use
-    the help subcommand: \cmdtt{git help add}.
+    the help subcommand: \cmdtt{git help add}
 \item[\href{http://www-cs-students.stanford.edu/~blynn/gitmagic/}{git-magic}]
     Available for free from
     \url{http://www-cs-students.stanford.edu/~blynn/gitmagic/}, git-magic goes
     into great depth on everything from the same basics covered in this manual
     to the underlying flaws of git and the internal organization of git's secret
-    \texttt{.git} directory.
+    \texttt{.git} directory
 \end{description}
 
 \vspace{\fill}
