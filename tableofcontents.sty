@@ -3,8 +3,10 @@
 
 \usepackage{fonts}
 \usepackage{etoolbox}
+\usepackage{tocloft}
 
 \AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}} 
+\setlength{\cftparskip}{0pt}
 
 \newcommand{\maketoc}{{
     \tableofcontents
