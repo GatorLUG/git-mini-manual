@@ -94,9 +94,9 @@ While you may not care how it works, rest assured: \emph{git's merging is some
 of the best}.
 
 \vspace{\fill}
-\begin{center}
-\includegraphics[width=12cm]{resources/patches_abstract.pdf}
-\end{center}
+\begin{flushright}
+\includegraphics[width=9cm]{resources/patches_abstract.pdf}
+\end{flushright}
 \vspace*{\fill}
 
 \chapter{Making a New Repository}
@@ -151,7 +151,7 @@ it's good to know that it's there.
 
 \vspace{\fill}
 \begin{flushright}
-\includegraphics[height=4cm]{resources/new_stack_abstract.pdf}
+\includegraphics[height=3.5cm]{resources/new_stack_abstract.pdf}
 \end{flushright}
 \vspace*{\fill}
 
@@ -224,7 +224,9 @@ removal.
 
 \begin{enumerate}
 \item Remove a file with \cmdtt{git rm}. If one wanted to remove
-    \texttt{cake.py}, it would be as simple as running \cmdtt{git rm cake.py}
+    \texttt{cake.py}, it would be as simple as running:
+    
+    \cmdtt{git rm cake.py}
 \item To remove a directory, use the \texttt{rm} subcommand \emph{with the
     \texttt{-r} argument.} This is different from \cmdtt{git add}, which is
     recursive by default
@@ -282,7 +284,11 @@ a message.
 When you run \cmdtt{git commit}, it opens your default editor defined by the
 bash \texttt{\$EDITOR} environment variable. You can override this behavior by
 modifying the variable in your local \texttt{\textasciitilde/.bashrc} file or by
-running \cmdtt{git config --global core.editor vim}, replacing \texttt{vim}
+running
+
+\cmdtt{git config --global core.editor vim}
+
+replacing \texttt{vim}
 with your editor of choice\footnote{Many GUI text editors will fork immediately,
 tricking git into thinking that you exited with an unchanged commit file,
 aborting the commit. You should consider using an command line editor like
@@ -378,11 +384,11 @@ integrity, and to \emph{identify commits}. When referencing commits yourself,
 you only need to use the first few characters of the hash, and git can figure
 out the rest.
 
-\vspace{\fill}
-\begin{center}
-\includegraphics[height=5cm]{resources/timeline_abstract.pdf}
-\end{center}
-\vspace*{\fill}
+%\vspace{\fill}
+%\begin{center}
+%\includegraphics[height=5cm]{resources/timeline_abstract.pdf}
+%\end{center}
+%\vspace*{\fill}
 
 \chapter{Branching Out}
 
@@ -494,7 +500,7 @@ you enjoy it. I'll see you at the top!
 
 \vspace{\fill}
 \begin{flushright}
-\includegraphics[height=7cm]{resources/learning_curve_abstract.pdf}
+\includegraphics[height=6cm]{resources/learning_curve_abstract.pdf}
 \end{flushright}
 \vspace*{\fill}
 
